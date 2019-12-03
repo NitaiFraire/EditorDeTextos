@@ -1,12 +1,35 @@
 from tkinter import *
+from tkinter import filedialog as Filedialog
+from io import open
 
+
+ruta = "" # Almacena la ruta de un archivo
 
 def nuevo():
+
     mensaje.set("Nuevo archivo")
+    global ruta
+    ruta = ""
+    texto.delete(1.0, END)
+    root.title("EditorDeTextosBy:Nitai")
 
 
 def abrir():
+
     mensaje.set("Abrir archivo")
+    global ruta
+    ruta = Filedialog.askopenfilename(initialdir=".",
+                                      filetypes=(("Archivos de texto", "*.txt"),),
+                                      title="Abrir archivo de texto")
+
+    if ruta != "":
+
+        archivo = open(ruta, 'r')
+        contenido = archivo.read()
+        texto.delete(1.0, END)
+        texto.insert('insert', contenido)
+        archivo.close()
+        root.title(ruta + " - EditorDeTextosBy:Nitai" )
 
 
 def guardar():
